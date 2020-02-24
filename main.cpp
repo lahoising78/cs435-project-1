@@ -16,9 +16,9 @@ int main(int argc, char *argv[])
     bst.insertRec(80);
 
     // bst.deleteRec(5);
-    // bst.deleteRec(20);
+    bst.deleteRec(20);
     bst.deleteRec(30);
-    // bst.deleteRec(50);
+    bst.deleteRec(50);
 
     bst.inOrder(inOrderArr);
 

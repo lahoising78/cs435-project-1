@@ -95,7 +95,8 @@ void BSTNode::deleteRec(int val)
         delete this;
         return;
     }
-    else if (right &&!left)
+    
+    if (right &&!left)
     {
         setParentNode(right);
         this->right = nullptr;
@@ -107,7 +108,7 @@ void BSTNode::deleteRec(int val)
     next = findNextNode();
     if(!next) return;
 
-    val = next->val;
+    this->val = next->val;
     next->deleteRec(next->val);
 }
 
@@ -117,7 +118,7 @@ BSTNode *BSTNode::findNextNode()
 {
     BSTNode *next = right;
 
-    while(next->left)
+    while(next && next->left)
     {
         next = next->left;
     }

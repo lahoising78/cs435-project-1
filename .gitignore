@@ -1,3 +1,4 @@
 *.o
 bst
 project1
+.vscode
