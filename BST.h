@@ -25,6 +25,8 @@ public:
 
 private:
     BSTNode *root;
+
+    BSTNode *find(int val);
 };
 
 #endif

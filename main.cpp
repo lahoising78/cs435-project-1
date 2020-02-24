@@ -17,6 +17,10 @@ int main(int argc, char *argv[])
     bst.insertIter(40);
     bst.insertIter(60);
     bst.insertIter(80);
+
+    bst.deleteIter(20);
+    bst.deleteIter(30);
+    bst.deleteIter(50);
     
     std::cout << "min " << bst.findMinIter() << std::endl;
     std::cout << "max " << bst.findMaxIter() << std::endl << std::endl;

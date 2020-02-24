@@ -41,6 +41,7 @@ void BST::insertIter(int val)
             if(!node->left)
             {
                 node->left = new BSTNode(val);
+                node->left->parent = node;
                 return;
             }
             else
@@ -53,6 +54,7 @@ void BST::insertIter(int val)
             if(!node->right)
             {
                 node->right = new BSTNode(val);
+                node->right->parent = node;
                 return;
             }
             else 
@@ -76,23 +78,43 @@ void BST::deleteRec(int val)
 
 void BST::deleteIter(int val)
 {
-    BSTNode *node = root;
+    BSTNode *node = find(val);
+    BSTNode *next = nullptr;
 
-    while(node->val != val)
+    while(node)
     {
-        if(val < node->val)
+        if(!node->right && !node->left)
         {
-            node = node->left;
-        }
-        else if (val > node->val)
-        {
-            node = node->right;
+            node->setParentNode(nullptr);
+            delete node;
+            return;
         }
 
-        if(!node) return;
+        if(!node->right && node->left)
+        {
+            node->setParentNode(node->left);
+            node->left = nullptr;
+            delete node;
+            return;
+        }
+
+        if(node->right && !node->left)
+        {
+            node->setParentNode(node->right);
+            node->right = nullptr;
+            delete node;
+            return;
+        }
+
+        next = node->right;
+        while(next->left)
+        {
+            next = next->left;
+        }
+
+        node->val = next->val;
+        node = next;
     }
-
-
 }
 
 /* =================FIND NEXT================== */
@@ -112,14 +134,22 @@ int BST::findNextRec(int val)
 
 int BST::findNextIter(int val)
 {
-    std::vector<int> vec;
-    root->inOrder(vec);
-
-    for(int i = 0; i < vec.size() - 1; i++)
+    BSTNode *node = find(val);
+    
+    if(node)
     {
-        if( vec[i] == val )
-            return vec[i+1];
-    }
+        if(node->right)
+        {
+            node = node->right;
+            while(node->left)
+            {
+                node = node->left;
+            }
+            return node->val;
+        }
+    } 
+
+
 
     return -1;
 }
@@ -179,4 +209,29 @@ int BST::findMaxIter()
     }
 
     return node->val;
+}
+
+/* ===============PRIVATE=============== */
+
+BSTNode *BST::find(int val)
+{
+    BSTNode *node = root;
+
+    while( val != node->val ) 
+    {
+        if(val < node->val)
+        {
+            node = node->left;
+        }
+        else if (val > node->val)
+        {
+            node = node->right;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    return node;
 }
