@@ -114,20 +114,32 @@ void BSTNode::deleteRec(int val)
 
 BSTNode *BSTNode::findNextRec(int val)
 {
+    BSTNode *res = nullptr;
+    int difs, difp;
+
     if(this->val == val)
     {
         if(this->right) return this->right->findMinRec();
-        return nullptr;
+        return this->parent;
     }
 
     if(val < this->val)
     {
         if(!this->left) return nullptr;
-        return this->left->findNextRec(val);
+        res = this->left->findNextRec(val);
     }
-    
-    if(!this->right) return nullptr;
-    return this->right->findNextRec(val);
+    else
+    {
+        if(!this->right) return nullptr;
+        res = this->right->findNextRec(val);
+    }
+
+    if(res != this || res->val - val > 0) return res;
+    if(res->parent == nullptr) return nullptr;
+
+    /* If we have reached this point, it means that the node with val does not have children */
+    if(this == this->parent->left) return this->parent;
+    return this->parent;
 }
 
 BSTNode *BSTNode::findPrevRec(int val)

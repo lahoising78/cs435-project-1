@@ -35,8 +35,12 @@ int main(int argc, char *argv[])
     // bst.deleteRec(30);
     // bst.deleteRec(50);
 
+    std::cout << "next of 20 " << bst.findNextRec(20) << std::endl;
+    std::cout << "next of 30 " << bst.findNextRec(30) << std::endl;
+    std::cout << "next of 40 " << bst.findNextRec(40) << std::endl;
     std::cout << "next of 50 " << bst.findNextRec(50) << std::endl;
     std::cout << "next of 60 " << bst.findNextRec(60) << std::endl;
+    std::cout << "next of 70 " << bst.findNextRec(70) << std::endl;
     std::cout << "next of 80 " << bst.findNextRec(80) << std::endl;
 
     std::cout << "min " << bst.findMinRec() << std::endl;
