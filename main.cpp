@@ -18,6 +18,14 @@ int main(int argc, char *argv[])
     bst.insertIter(60);
     bst.insertIter(80);
 
+    std::cout << "next of 20 " << bst.findNextIter(20) << std::endl;
+    std::cout << "next of 30 " << bst.findNextIter(30) << std::endl;
+    std::cout << "next of 40 " << bst.findNextIter(40) << std::endl;
+    std::cout << "next of 50 " << bst.findNextIter(50) << std::endl;
+    std::cout << "next of 60 " << bst.findNextIter(60) << std::endl;
+    std::cout << "next of 70 " << bst.findNextIter(70) << std::endl;
+    std::cout << "next of 80 " << bst.findNextIter(80) << std::endl << std::endl;
+
     bst.deleteIter(20);
     bst.deleteIter(30);
     bst.deleteIter(50);

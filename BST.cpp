@@ -136,22 +136,24 @@ int BST::findNextIter(int val)
 {
     BSTNode *node = find(val);
     
-    if(node)
+    if(!node) return -1;
+    
+    if(node->right)
     {
-        if(node->right)
+        node = node->right;
+        while(node->left)
         {
-            node = node->right;
-            while(node->left)
-            {
-                node = node->left;
-            }
-            return node->val;
+            node = node->left;
         }
-    } 
+        return node->val;
+    }
 
+    while(node->parent && node != node->parent->left)
+    {
+        node = node->parent;
+    }
 
-
-    return -1;
+    return node->parent? node->parent->val : -1;
 }
 
 /* ======================FIND PREV==================== */
