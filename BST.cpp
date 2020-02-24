@@ -76,9 +76,23 @@ void BST::deleteRec(int val)
 
 void BST::deleteIter(int val)
 {
-    BSTNode *node = nullptr;
+    BSTNode *node = root;
 
-    
+    while(node->val != val)
+    {
+        if(val < node->val)
+        {
+            node = node->left;
+        }
+        else if (val > node->val)
+        {
+            node = node->right;
+        }
+
+        if(!node) return;
+    }
+
+
 }
 
 /* =================FIND NEXT================== */
@@ -134,6 +148,18 @@ int BST::findMinRec()
     return root->findMinRec()->val;
 }
 
+int BST::findMinIter()
+{
+    BSTNode *node = root;
+    
+    while(node->left)
+    {
+        node = node->left;
+    }
+
+    return node->val;
+}
+
 /* ======================FIND MAX====================== */
 
 int BST::findMaxRec()
@@ -141,4 +167,16 @@ int BST::findMaxRec()
     if(!root)
         return -10;
     return root->findMaxRec()->val;
+}
+
+int BST::findMaxIter()
+{
+    BSTNode *node = root;
+    
+    while(node->right)
+    {
+        node = node->right;
+    }
+
+    return node->val;
 }

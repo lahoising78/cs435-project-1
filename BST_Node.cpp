@@ -96,7 +96,7 @@ void BSTNode::deleteRec(int val)
     }
 
     /* Two children */
-    next = findNextNode();
+    next = this->findNextRec(this->val);
     if(!next) return;
 
     this->val = next->val;

@@ -1,7 +1,7 @@
 #include "BST.h"
 #include <iostream>
 
-// #define ITER
+#define ITER
 
 int main(int argc, char *argv[])
 {
@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
     bst.insertIter(60);
     bst.insertIter(80);
     
-
+    std::cout << "min " << bst.findMinIter() << std::endl;
+    std::cout << "max " << bst.findMaxIter() << std::endl << std::endl;
 
 #else
 
