@@ -171,6 +171,30 @@ int BST::findPrevRec(int val)
     return -1;
 }
 
+int BST::findPrevIter(int val)
+{
+    BSTNode *node = find(val);
+
+    if(!node) return -1;
+
+    if(node->left)
+    {
+        node = node->left;
+        while(node->right)
+        {
+            node = node->right;
+        }
+        return node->val;
+    }
+
+    while(node->parent && node->parent->right != node)
+    {
+        node = node->parent;
+    }
+
+    return node->parent? node->parent->val : -1;
+}
+
 /* ======================FIND MIN======================= */
 
 int BST::findMinRec()

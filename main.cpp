@@ -26,6 +26,14 @@ int main(int argc, char *argv[])
     std::cout << "next of 70 " << bst.findNextIter(70) << std::endl;
     std::cout << "next of 80 " << bst.findNextIter(80) << std::endl << std::endl;
 
+    std::cout << "prev of 80 " << bst.findPrevIter(80) << std::endl;
+    std::cout << "prev of 70 " << bst.findPrevIter(70) << std::endl;
+    std::cout << "prev of 60 " << bst.findPrevIter(60) << std::endl;
+    std::cout << "prev of 50 " << bst.findPrevIter(50) << std::endl;
+    std::cout << "prev of 40 " << bst.findPrevIter(40) << std::endl;
+    std::cout << "prev of 30 " << bst.findPrevIter(30) << std::endl;
+    std::cout << "prev of 20 " << bst.findPrevIter(20) << std::endl << std::endl;
+
     bst.deleteIter(20);
     bst.deleteIter(30);
     bst.deleteIter(50);
