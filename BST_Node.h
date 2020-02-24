@@ -13,6 +13,12 @@ public:
 
     void insertRec(int val);
     void deleteRec(int val);
+    BSTNode *findNextRec(int val);
+    BSTNode *findPrevRec(int val);
+    BSTNode *findMinRec(); //**< this is never going to be null
+    BSTNode *findMaxRec(); //**< this is never going to be null
+
+    friend class BST;
 
 private:
     int val;

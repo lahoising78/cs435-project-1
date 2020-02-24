@@ -6,7 +6,7 @@
 BSTNode::BSTNode(int val) 
 {
     this->val = val;
-    this->right = this->left = nullptr;
+    this->right = this->left = this->parent = nullptr;
 }
 
 BSTNode::~BSTNode()
@@ -111,6 +111,42 @@ void BSTNode::deleteRec(int val)
     this->val = next->val;
     next->deleteRec(next->val);
 }
+
+BSTNode *BSTNode::findNextRec(int val)
+{
+    if(this->val == val)
+    {
+        if(this->right) return this->right->findMinRec();
+        return nullptr;
+    }
+
+    if(val < this->val)
+    {
+        if(!this->left) return nullptr;
+        return this->left->findNextRec(val);
+    }
+    
+    if(!this->right) return nullptr;
+    return this->right->findNextRec(val);
+}
+
+BSTNode *BSTNode::findPrevRec(int val)
+{
+
+}
+
+BSTNode *BSTNode::findMinRec()
+{
+    if(left) return left->findMinRec();
+    return this;
+}
+
+BSTNode *BSTNode::findMaxRec()
+{
+    if(right) return right->findMaxRec();
+    return this;
+}
+
 
 /* =========================PRIVATE======================== */
 
