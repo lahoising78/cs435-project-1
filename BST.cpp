@@ -78,9 +78,14 @@ void BST::deleteRec(int val)
 
 int BST::findNextRec(int val)
 {
-    BSTNode *node = root->findNextRec(val);
+    BSTNode *node = nullptr;
+    
+    if(root)
+        node = root->findNextRec(val);
+
     if(node)
-        return node->getVal();
+        return node->val;
+
     return -1;
 }
 
@@ -102,7 +107,15 @@ int BST::findNextIter(int val)
 
 int BST::findPrevRec(int val)
 {
+    BSTNode *node = nullptr;
 
+    if(root)
+        node = root->findPrevRec(val);
+    
+    if(node)
+        return node->val;
+
+    return -1;
 }
 
 /* ======================FIND MIN======================= */

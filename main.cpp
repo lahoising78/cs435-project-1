@@ -43,6 +43,14 @@ int main(int argc, char *argv[])
     std::cout << "next of 70 " << bst.findNextRec(70) << std::endl;
     std::cout << "next of 80 " << bst.findNextRec(80) << std::endl;
 
+    std::cout << "prev of 80 " << bst.findPrevRec(80) << std::endl;
+    std::cout << "prev of 70 " << bst.findPrevRec(70) << std::endl;
+    std::cout << "prev of 60 " << bst.findPrevRec(60) << std::endl;
+    std::cout << "prev of 50 " << bst.findPrevRec(50) << std::endl;
+    std::cout << "prev of 40 " << bst.findPrevRec(40) << std::endl;
+    std::cout << "prev of 30 " << bst.findPrevRec(30) << std::endl;
+    std::cout << "prev of 20 " << bst.findPrevRec(20) << std::endl;
+
     std::cout << "min " << bst.findMinRec() << std::endl;
     std::cout << "max " << bst.findMaxRec() << std::endl;
 

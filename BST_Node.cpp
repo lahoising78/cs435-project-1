@@ -119,32 +119,69 @@ BSTNode *BSTNode::findNextRec(int val)
 
     if(this->val == val)
     {
+        /* You have found the node that contains val */
+        /* if you have a right node, get the min  from that side */
         if(this->right) return this->right->findMinRec();
+        /* else, traverse the tree backwards */
         return this->parent;
     }
 
+    /* you know you are not the node that contains the value at this point */
     if(val < this->val)
     {
+        /* the value is less than my value but i have no left child? The value simply CANNOT be in this tree */
         if(!this->left) return nullptr;
+        /* I have a child less than me, so let me ask them if they or one of their children have the successor */
         res = this->left->findNextRec(val);
     }
     else
     {
+        /* the value is greater than my value but i have no right child? The value simply CANNOT be in this tree */
         if(!this->right) return nullptr;
+        /* I have a child greater than me, so let me ask them if they or one of their children have the successor */
         res = this->right->findNextRec(val);
     }
 
+    /* 
+    if my children say that they have it, then great,
+    but if they say they don't have it, then i suppose it should be me or one of my parents.
+    if my value is greater than the value, then i guess I the successor,
+    because at this point if im greater than the value, then my parent asked me because the value was less than them
+    */
     if(res != this || res->val - val > 0) return res;
-    if(res->parent == nullptr) return nullptr;
 
-    /* If we have reached this point, it means that the node with val does not have children */
-    if(this == this->parent->left) return this->parent;
+    /* if my children dont have it and I'm less than the value, then I guess my parents have it */
+    /* if I have don't have one, then that value simply must be out of range */
+    if(res->parent == nullptr) return nullptr;
+    /* but if i have a parent, i'll just tell them to figure it out themselves */
     return this->parent;
 }
 
 BSTNode *BSTNode::findPrevRec(int val)
 {
+    BSTNode *res = nullptr;
 
+    if(val == this->val)
+    {
+        if(left) return left->findMaxRec();
+        return this->parent;
+    }
+
+    if(val < this->val)
+    {
+        if(!left) return nullptr;
+        res = left->findPrevRec(val);
+    }
+    else
+    {
+        if(!right) return nullptr;
+        res = right->findPrevRec(val);
+    }
+
+    if(res != this || val - this->val > 0) return res;
+
+    // if(!this->parent) return nullptr;
+    return this->parent;
 }
 
 BSTNode *BSTNode::findMinRec()
