@@ -74,6 +74,13 @@ void BST::deleteRec(int val)
     root->deleteRec(val);
 }
 
+void BST::deleteIter(int val)
+{
+    BSTNode *node = nullptr;
+
+    
+}
+
 /* =================FIND NEXT================== */
 
 int BST::findNextRec(int val)

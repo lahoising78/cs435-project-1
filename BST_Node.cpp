@@ -59,25 +59,16 @@ void BSTNode::deleteRec(int val)
 {
     BSTNode *next = this;
 
-    if(val != this->val)
+    if(val < this->val)
     {
-        while( val != next->val )
-        {
-            if( val < next->val )
-            {
-                next = next->left;
-            }
-            else
-            {
-                next = next->right;
-            }
-            if(!next) return;
-        }
-        next->deleteRec(val);
+        if(this->left) left->deleteRec(val);
         return;
     }
-
-    std::cout << "delete " << this->val << std::endl;
+    if(val > this->val)
+    {
+        if(this->right) right->deleteRec(val);
+        return;
+    }
 
     /* No children */
     if(!left && !right)
@@ -152,7 +143,6 @@ BSTNode *BSTNode::findNextRec(int val)
 
     /* if my children dont have it and I'm less than the value, then I guess my parents have it */
     /* if I have don't have one, then that value simply must be out of range */
-    if(res->parent == nullptr) return nullptr;
     /* but if i have a parent, i'll just tell them to figure it out themselves */
     return this->parent;
 }
@@ -180,7 +170,6 @@ BSTNode *BSTNode::findPrevRec(int val)
 
     if(res != this || val - this->val > 0) return res;
 
-    // if(!this->parent) return nullptr;
     return this->parent;
 }
 

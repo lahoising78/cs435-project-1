@@ -30,10 +30,9 @@ int main(int argc, char *argv[])
     bst.insertRec(60);
     bst.insertRec(80);
 
-    // bst.deleteRec(5);
-    // bst.deleteRec(20);
-    // bst.deleteRec(30);
-    // bst.deleteRec(50);
+    bst.deleteRec(20);
+    bst.deleteRec(30);
+    bst.deleteRec(50);
 
     std::cout << "next of 20 " << bst.findNextRec(20) << std::endl;
     std::cout << "next of 30 " << bst.findNextRec(30) << std::endl;
@@ -41,7 +40,7 @@ int main(int argc, char *argv[])
     std::cout << "next of 50 " << bst.findNextRec(50) << std::endl;
     std::cout << "next of 60 " << bst.findNextRec(60) << std::endl;
     std::cout << "next of 70 " << bst.findNextRec(70) << std::endl;
-    std::cout << "next of 80 " << bst.findNextRec(80) << std::endl;
+    std::cout << "next of 80 " << bst.findNextRec(80) << std::endl << std::endl;
 
     std::cout << "prev of 80 " << bst.findPrevRec(80) << std::endl;
     std::cout << "prev of 70 " << bst.findPrevRec(70) << std::endl;
@@ -49,10 +48,10 @@ int main(int argc, char *argv[])
     std::cout << "prev of 50 " << bst.findPrevRec(50) << std::endl;
     std::cout << "prev of 40 " << bst.findPrevRec(40) << std::endl;
     std::cout << "prev of 30 " << bst.findPrevRec(30) << std::endl;
-    std::cout << "prev of 20 " << bst.findPrevRec(20) << std::endl;
+    std::cout << "prev of 20 " << bst.findPrevRec(20) << std::endl << std::endl;
 
     std::cout << "min " << bst.findMinRec() << std::endl;
-    std::cout << "max " << bst.findMaxRec() << std::endl;
+    std::cout << "max " << bst.findMaxRec() << std::endl << std::endl;
 
 #endif
 
