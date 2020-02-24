@@ -12,11 +12,17 @@ public:
     void inOrder( std::vector<int> &vec );
 
     void insertRec(int val);
+    void deleteRec(int val);
 
 private:
     int val;
     BSTNode *left;
     BSTNode *right;
+    BSTNode *parent;
+
+    void inOrderNodes( std::vector<BSTNode*> &vec );
+    BSTNode *findNextNode();
+    void setParentNode(BSTNode *node);
 };
 
 #endif

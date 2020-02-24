@@ -6,8 +6,11 @@
 class BST {
 public:
     BST();
-    void insertRec(int val);
+
     void inOrder( std::vector<int> &vec );
+    
+    void insertRec(int val);
+    void deleteRec(int val);
 
 private:
     BSTNode *root;

@@ -5,6 +5,11 @@ BST::BST()
     root = nullptr;
 }
 
+void BST::inOrder( std::vector<int> &vec )
+{
+    root->inOrder(vec);
+}
+
 void BST::insertRec(int val)
 {
     if(root == nullptr)
@@ -16,7 +21,7 @@ void BST::insertRec(int val)
     root->insertRec(val);
 }
 
-void BST::inOrder( std::vector<int> &vec )
+void BST::deleteRec(int val)
 {
-    root->inOrder(vec);
+    root->deleteRec(val);
 }
