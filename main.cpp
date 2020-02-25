@@ -1,12 +1,16 @@
 #include "BST.h"
 #include <iostream>
 
-#define ITER
+// #define ITER
+
+void printArray(std::vector<int> &arr);
+std::vector<int> sort(std::vector<int> &arr);
 
 int main(int argc, char *argv[])
 {
     BST bst = BST();
     std::vector<int> inOrderArr;
+    std::vector<int> unsorted{5, 235, 16, 7304, 74, 54};
 
 #ifdef ITER
 
@@ -77,12 +81,29 @@ int main(int argc, char *argv[])
 #endif
 
     bst.inOrder(inOrderArr);
+    printArray(inOrderArr);
 
-    for( int i : inOrderArr )
-    {
-        std::cout << i << " ";
-    }
-    std::cout << std::endl;
+    unsorted = sort(unsorted);
+    printArray(unsorted);
 
     return 0;
+}
+
+void printArray(std::vector<int> &arr)
+{
+    for(int i : arr)
+        std::cout << i << " ";
+    std::cout << std::endl;
+}
+
+std::vector<int> sort(std::vector<int> &arr)
+{
+    BST bst = BST();
+    std::vector<int> sorted;
+
+    for(int i : arr)
+        bst.insertIter(i);
+
+    bst.inOrder(sorted);
+    return sorted;
 }
