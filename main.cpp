@@ -8,6 +8,7 @@
 void printArray(std::vector<int> &arr);
 std::vector<int> sort(std::vector<int> &arr);
 std::vector<int> getRandomArray(int n);
+std::vector<int> getSortedArray(int n);
 
 int main(int argc, char *argv[])
 {
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
     std::vector<int> inOrderArr;
     std::vector<int> unsorted{5, 235, 16, 7304, 74, 54};
     std::vector<int> r;
+    std::vector<int> sorted;
 
 #ifdef ITER
 
@@ -93,6 +95,9 @@ int main(int argc, char *argv[])
     r = getRandomArray(10);
     printArray( r );
 
+    sorted = getSortedArray(12);
+    printArray(sorted);
+
     return 0;
 }
 
@@ -132,6 +137,18 @@ std::vector<int> getRandomArray(int n)
             arr.push_back(num);
             cur++;
         }
+    }
+
+    return arr;
+}
+
+std::vector<int> getSortedArray(int n)
+{
+    std::vector<int> arr;
+
+    for(; n > 0 ; n--)
+    {
+        arr.push_back(n);
     }
 
     return arr;
