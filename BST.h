@@ -16,7 +16,7 @@ public:
     int findMinRec();
     int findMaxRec();
     
-    void insertIter(int val);
+    bool insertIter(int val);
     void deleteIter(int val);
     int findNextIter(int val);
     int findPrevIter(int val);

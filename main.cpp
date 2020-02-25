@@ -1,16 +1,20 @@
 #include "BST.h"
 #include <iostream>
+#include <random>
+#include <time.h>
 
 // #define ITER
 
 void printArray(std::vector<int> &arr);
 std::vector<int> sort(std::vector<int> &arr);
+std::vector<int> getRandomArray(int n);
 
 int main(int argc, char *argv[])
 {
     BST bst = BST();
     std::vector<int> inOrderArr;
     std::vector<int> unsorted{5, 235, 16, 7304, 74, 54};
+    std::vector<int> r;
 
 #ifdef ITER
 
@@ -86,6 +90,9 @@ int main(int argc, char *argv[])
     unsorted = sort(unsorted);
     printArray(unsorted);
 
+    r = getRandomArray(10);
+    printArray( r );
+
     return 0;
 }
 
@@ -106,4 +113,26 @@ std::vector<int> sort(std::vector<int> &arr)
 
     bst.inOrder(sorted);
     return sorted;
+}
+
+std::vector<int> getRandomArray(int n)
+{
+    const int max = 1000;
+    BST bst = BST();
+    std::vector<int> arr;
+    std::srand(time(0));
+    int cur = 0;
+    int num = 0;
+
+    while(cur < n)
+    {
+        num = std::rand() % max;
+        if( bst.insertIter(num) )
+        {
+            arr.push_back(num);
+            cur++;
+        }
+    }
+
+    return arr;
 }

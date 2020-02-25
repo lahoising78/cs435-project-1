@@ -24,14 +24,14 @@ void BST::insertRec(int val)
     root->insertRec(val);
 }
 
-void BST::insertIter(int val)
+bool BST::insertIter(int val)
 {
     BSTNode *node = root;
 
     if(!root)
     {
         root = new BSTNode(val);
-        return;
+        return true;
     }
 
     while(node)
@@ -42,7 +42,7 @@ void BST::insertIter(int val)
             {
                 node->left = new BSTNode(val);
                 node->left->parent = node;
-                return;
+                return true;
             }
             else
             {
@@ -55,7 +55,7 @@ void BST::insertIter(int val)
             {
                 node->right = new BSTNode(val);
                 node->right->parent = node;
-                return;
+                return true;
             }
             else 
             {
@@ -64,7 +64,7 @@ void BST::insertIter(int val)
         }
         else
         {
-            node = nullptr;
+            return false;
         }
     }
 }
