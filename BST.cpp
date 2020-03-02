@@ -1,5 +1,6 @@
 #include "BST.h"
 #include <iostream>
+#include <bits/stdc++.h> 
 
 BST::BST()
 {
@@ -27,10 +28,12 @@ void BST::insertRec(int val)
 bool BST::insertIter(int val)
 {
     BSTNode *node = root;
+    printf("\ninsert %d", val);
 
     if(!root)
     {
         root = new BSTNode(val);
+        root->height++;
         return true;
     }
 
@@ -42,6 +45,7 @@ bool BST::insertIter(int val)
             {
                 node->left = new BSTNode(val);
                 node->left->parent = node;
+                alterParentHeight(node->left);
                 return true;
             }
             else
@@ -55,6 +59,7 @@ bool BST::insertIter(int val)
             {
                 node->right = new BSTNode(val);
                 node->right->parent = node;
+                alterParentHeight(node->right);
                 return true;
             }
             else 
@@ -81,11 +86,19 @@ void BST::deleteIter(int val)
     BSTNode *node = find(val);
     BSTNode *next = nullptr;
 
+    if(node == root)
+    {
+        delete root;
+        root = nullptr;
+        return;
+    }
+
     while(node)
     {
         if(!node->right && !node->left)
         {
             node->setParentNode(nullptr);
+            alterParentHeight(node->parent);
             delete node;
             return;
         }
@@ -93,6 +106,7 @@ void BST::deleteIter(int val)
         if(!node->right && node->left)
         {
             node->setParentNode(node->left);
+            alterParentHeight(node->left);
             node->left = nullptr;
             delete node;
             return;
@@ -101,6 +115,7 @@ void BST::deleteIter(int val)
         if(node->right && !node->left)
         {
             node->setParentNode(node->right);
+            alterParentHeight(node->right);
             node->right = nullptr;
             delete node;
             return;
@@ -237,6 +252,36 @@ int BST::findMaxIter()
     return node->val;
 }
 
+void BST::printTree()
+{
+    double n;
+    double lg;
+    std::queue<BSTNode*> q;
+    BSTNode *node = nullptr;
+
+    q.push(root);
+
+    for(n = 1.0; !q.empty(); n += 1.0)
+    {
+        node = q.front();
+        q.pop();
+        if(!node) continue;
+
+        lg = std::log2(n);
+        if( lg - floor(lg) == 0.0f)
+        {
+            std::cout << std::endl;
+        }
+
+        std::cout << node->val << " ";
+
+        if(node->left) q.push(node->left);
+        if(node->right) q.push(node->right);
+    }
+
+    std::cout << std::endl;
+}
+
 /* ===============PRIVATE=============== */
 
 BSTNode *BST::find(int val)
@@ -260,4 +305,18 @@ BSTNode *BST::find(int val)
     }
 
     return node;
+}
+
+void BST::alterParentHeight(BSTNode *node)
+{
+    if(!node) return;
+
+    while(node->parent)
+    {
+        node->updateHeight();
+        node = node->parent;
+    }
+
+    node->updateHeight();
+
 }

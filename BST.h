@@ -2,6 +2,7 @@
 #define _BST_H_
 
 #include "BST_Node.h"
+#include <queue>
 
 class BST {
 public:
@@ -16,17 +17,20 @@ public:
     int findMinRec();
     int findMaxRec();
     
-    bool insertIter(int val);
-    void deleteIter(int val);
-    int findNextIter(int val);
-    int findPrevIter(int val);
-    int findMinIter();
-    int findMaxIter();
+    virtual bool insertIter(int val);
+    virtual void deleteIter(int val);
+    virtual int findNextIter(int val);
+    virtual int findPrevIter(int val);
+    virtual int findMinIter();
+    virtual int findMaxIter();
 
-private:
+    void printTree();
+
+protected:
     BSTNode *root;
 
     BSTNode *find(int val);
+    void alterParentHeight(BSTNode *node);
 };
 
 #endif

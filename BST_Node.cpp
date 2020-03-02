@@ -185,6 +185,10 @@ BSTNode *BSTNode::findMaxRec()
     return this;
 }
 
+// int BSTNode::getBF()
+// {
+//     return bf;
+// }
 
 /* =========================PRIVATE======================== */
 
@@ -212,4 +216,29 @@ void BSTNode::setParentNode(BSTNode *node)
     }
     
     if(node) node->parent = this->parent;
+}
+
+int BSTNode::getHeight()
+{
+    return height;
+}
+
+void BSTNode::updateHeight()
+{
+    if(this->left && this->right)
+    {
+        this->height = this->left->height > this->right->height ? this->left->height + 1 : this->right->height + 1;
+    }
+    else if (this->left)
+    {
+        this->height = this->left->height + 1;
+    }
+    else if (this->right)
+    {
+        this->height = this->right->height + 1;
+    }
+    else
+    {
+        this->height = 1;
+    }
 }

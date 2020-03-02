@@ -18,13 +18,18 @@ public:
     BSTNode *findMinRec(); //**< this is never going to be null
     BSTNode *findMaxRec(); //**< this is never going to be null
 
+    int getHeight();
+    void updateHeight();
+
     friend class BST;
+    friend class AVL;
 
 private:
     int val;
     BSTNode *left;
     BSTNode *right;
     BSTNode *parent;
+    int height;
 
     void inOrderNodes( std::vector<BSTNode*> &vec );
     BSTNode *findNextNode();
