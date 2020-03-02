@@ -10,7 +10,7 @@ public:
     ~AVL();
 
     bool insertIter(int val);
-    void deleteIter(int val);
+    int deleteIter(int val);
     int findNextIter(int val);
     int findPrevIter(int val);
     int findMinIter();

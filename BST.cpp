@@ -29,7 +29,7 @@ void BST::insertRec(int val)
 bool BST::insertIter(int val)
 {
     BSTNode *node = root;
-    printf("\ninsert %d", val);
+    // printf("\ninsert %d", val);
 
     if(!root)
     {
@@ -82,17 +82,18 @@ void BST::deleteRec(int val)
     root->deleteRec(val);
 }
 
-void BST::deleteIter(int val)
+int BST::deleteIter(int val)
 {
     BSTNode *node = find(val);
     BSTNode *next = nullptr;
+    int ret = -1;
 
-    if(node == root)
-    {
-        delete root;
-        root = nullptr;
-        return;
-    }
+    // if(node == root)
+    // {
+    //     delete node;
+    //     root = nullptr;
+    //     return ret;
+    // }
 
     while(node)
     {
@@ -100,26 +101,45 @@ void BST::deleteIter(int val)
         {
             node->setParentNode(nullptr);
             alterParentHeight(node->parent);
+            if(node->parent) ret = node->parent->val;
             delete node;
-            return;
+            return ret;
         }
 
         if(!node->right && node->left)
         {
-            node->setParentNode(node->left);
+            if(node == root)
+            {
+                root = node->left;
+                node->left->parent = nullptr;
+            }
+            else
+            {
+                node->setParentNode(node->left);
+            }
             alterParentHeight(node->left);
+            ret = node->left->val;
             node->left = nullptr;
             delete node;
-            return;
+            return ret;
         }
 
         if(node->right && !node->left)
         {
-            node->setParentNode(node->right);
+            if(node == root)
+            {
+                root = node->right;
+                node->right->parent = nullptr;
+            }
+            else
+            {
+                node->setParentNode(node->right);
+            }
             alterParentHeight(node->right);
+            ret = node->right->val;
             node->right = nullptr;
             delete node;
-            return;
+            return ret;
         }
 
         next = node->right;
@@ -290,8 +310,9 @@ void BST::printTree()
 BSTNode *BST::find(int val)
 {
     BSTNode *node = root;
+    if(val == -1) return nullptr;
 
-    while( val != node->val ) 
+    while( node && val != node->val ) 
     {
         if(val < node->val)
         {

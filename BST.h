@@ -18,7 +18,7 @@ public:
     int findMaxRec();
     
     virtual bool insertIter(int val);
-    virtual void deleteIter(int val);
+    virtual int deleteIter(int val);
     virtual int findNextIter(int val);
     virtual int findPrevIter(int val);
     virtual int findMinIter();

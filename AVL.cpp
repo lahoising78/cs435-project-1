@@ -24,39 +24,45 @@ bool AVL::insertIter(int val)
     // std::cout << val << " set root height to " << root->getHeight() << std::endl;
 }
 
-void AVL::deleteIter(int val)
+int AVL::deleteIter(int val)
 {
     BSTNode *node = nullptr;
-    BST::deleteIter(val);
+    int n = BST::deleteIter(val);
+
+    balanceNode( find(n) );
 
     if(root)
         std::cout << "removing " << val << " set root height to " << root->getHeight() << std::endl;
     else
         std::cout << "no root" << std::endl;
+
+    this->printTree();
+    return n;
 }
 
 int AVL::findNextIter(int val)
 {
-
+    return BST::findNextIter(val);
 }
 
 int AVL::findPrevIter(int val)
 {
-
+    return BST::findPrevIter(val);
 }
 
 int AVL::findMinIter()
 {
-
+    return BST::findMinIter();
 }
 
 int AVL::findMaxIter()
 {
-
+    return BST::findMaxIter();
 }
 
 void AVL::balanceNode(BSTNode *node)
 {
+    if(!node) return;
     while(node->parent)
     {
         balanceNodeHelper(node);

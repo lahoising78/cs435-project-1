@@ -4,6 +4,10 @@
 #include <time.h>
 #include <string.h>
 
+#define AVL_MAIN
+// #define ITER_MAIN
+// #define REC_MAIN
+
 void printArray(std::vector<int> &arr);
 std::vector<int> sort(std::vector<int> &arr);
 std::vector<int> getRandomArray(int n);
@@ -118,7 +122,9 @@ int avl_main(int argc, char *argv[])
     AVL avl = AVL();
     std::vector<int> toarr;
     std::vector<int> randomArr;
-    randomArr = getRandomArray(1023);
+    std::vector<int> sorted;
+    int a;
+    randomArr = getRandomArray( atoi(argv[1]) );
 
     for(int i : randomArr)
         avl.insertIter(i);
@@ -127,21 +133,43 @@ int avl_main(int argc, char *argv[])
 
     avl.inOrder(toarr);
     printArray(toarr);
+    
+    sorted = sort(randomArr);
+    for(int i : sorted)
+        printf("Next of %d is %d\n", i, avl.findNextIter(i));
+
+    for(std::vector<int>::reverse_iterator rit = sorted.rbegin(); rit != sorted.rend(); rit++)
+        printf("Previous of %d is %d\n", *rit, avl.findPrevIter(*rit));
+
+    std::cout << "Max is " << avl.findMaxIter() << " and Min is " << avl.findMinIter() << std::endl;
+
+    for( a = 0; a < randomArr.size() && a < 4; a++ )
+    {
+        avl.deleteIter(randomArr[a]);
+    }
+    std::cout << std::endl;
+
+    toarr.clear();
+    avl.inOrder(toarr);
+    printArray(toarr);
+
 }
 
 int main(int argc, char *argv[])
 {
     int i;
 
-    for(i = 1; i < argc; i++)
-    {
-        if( strcmp(argv[i], "iter") == 0 )
-            bst_iter(argc, argv);
-        else if( strcmp(argv[i], "rec") == 0 )
-            bst_rec(argc, argv);
-        else if( strcmp(argv[i], "avl") == 0 )
-            avl_main(argc, argv);
-    }
+#ifdef ITER_MAIN
+    bst_iter(argc, argv);
+#endif
+
+#ifdef REC_MAIN
+    bst_rec(argc, argv);
+#endif
+
+#ifdef AVL_MAIN
+    avl_main(argc, argv);
+#endif
 
     return 0;
 }
@@ -167,7 +195,7 @@ std::vector<int> sort(std::vector<int> &arr)
 
 std::vector<int> getRandomArray(int n)
 {
-    const int max = 1024;
+    const int max = 64;
     BST bst = BST();
     std::vector<int> arr;
     std::srand(time(0));
@@ -177,6 +205,7 @@ std::vector<int> getRandomArray(int n)
     while(cur < n)
     {
         num = std::rand() % max;
+        // num = std::rand();
         if( bst.insertIter(num) )
         {
             arr.push_back(num);
