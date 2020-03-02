@@ -9,7 +9,8 @@ BST::BST()
 
 void BST::inOrder( std::vector<int> &vec )
 {
-    root->inOrder(vec);
+    if(!root) return;
+        root->inOrder(vec);
 }
 
 /* ===================INSERT================= */
@@ -223,6 +224,7 @@ int BST::findMinIter()
 {
     BSTNode *node = root;
     
+    if(!node) return -1;
     while(node->left)
     {
         node = node->left;
@@ -244,6 +246,7 @@ int BST::findMaxIter()
 {
     BSTNode *node = root;
     
+    if(!root) return -1;
     while(node->right)
     {
         node = node->right;
