@@ -5,6 +5,7 @@
 BST::BST()
 {
     root = nullptr;
+    traversed = 0;
 }
 
 void BST::inOrder( std::vector<int> &vec )
@@ -26,7 +27,7 @@ void BST::insertRec(int val)
     root->insertRec(val);
 }
 
-bool BST::insertIter(int val)
+BSTNode *BST::insertIter(int val)
 {
     BSTNode *node = root;
     // printf("\ninsert %d", val);
@@ -35,7 +36,7 @@ bool BST::insertIter(int val)
     {
         root = new BSTNode(val);
         root->height++;
-        return true;
+        return root;
     }
 
     while(node)
@@ -47,10 +48,11 @@ bool BST::insertIter(int val)
                 node->left = new BSTNode(val);
                 node->left->parent = node;
                 alterParentHeight(node->left);
-                return true;
+                return node->left;
             }
             else
             {
+                traversed++;
                 node = node->left;
             }
         }
@@ -61,16 +63,17 @@ bool BST::insertIter(int val)
                 node->right = new BSTNode(val);
                 node->right->parent = node;
                 alterParentHeight(node->right);
-                return true;
+                return node->right;
             }
             else 
             {
+                traversed++;
                 node = node->right;
             }
         }
         else
         {
-            return false;
+            return nullptr;
         }
     }
 }
@@ -82,11 +85,11 @@ void BST::deleteRec(int val)
     root->deleteRec(val);
 }
 
-int BST::deleteIter(int val)
+BSTNode *BST::deleteIter(int val)
 {
     BSTNode *node = find(val);
     BSTNode *next = nullptr;
-    int ret = -1;
+    BSTNode *ret = nullptr;
 
     // if(node == root)
     // {
@@ -103,11 +106,11 @@ int BST::deleteIter(int val)
             {
                 delete node;
                 root = nullptr;
-                return ret;
+                return root;
             }
             node->setParentNode(nullptr);
             alterParentHeight(node->parent);
-            if(node->parent) ret = node->parent->val;
+            if(node->parent) ret = node->parent;
             delete node;
             return ret;
         }
@@ -124,7 +127,7 @@ int BST::deleteIter(int val)
                 node->setParentNode(node->left);
             }
             alterParentHeight(node->left);
-            ret = node->left->val;
+            ret = node->left;
             node->left = nullptr;
             delete node;
             return ret;
@@ -142,7 +145,7 @@ int BST::deleteIter(int val)
                 node->setParentNode(node->right);
             }
             alterParentHeight(node->right);
-            ret = node->right->val;
+            ret = node->right;
             node->right = nullptr;
             delete node;
             return ret;
@@ -311,6 +314,11 @@ void BST::printTree()
     std::cout << std::endl;
 }
 
+int BST::getTraversed()
+{
+    return traversed;
+}
+
 /* ===============PRIVATE=============== */
 
 BSTNode *BST::find(int val)
@@ -322,10 +330,12 @@ BSTNode *BST::find(int val)
     {
         if(val < node->val)
         {
+            traversed++;
             node = node->left;
         }
         else if (val > node->val)
         {
+            traversed++;
             node = node->right;
         }
         else

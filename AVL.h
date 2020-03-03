@@ -9,8 +9,8 @@ public:
     AVL();
     ~AVL();
 
-    bool insertIter(int val);
-    int deleteIter(int val);
+    BSTNode *insertIter(int val);
+    BSTNode *deleteIter(int val);
     int findNextIter(int val);
     int findPrevIter(int val);
     int findMinIter();
