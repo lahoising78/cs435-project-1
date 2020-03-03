@@ -3,6 +3,7 @@
 #include <random>
 #include <time.h>
 #include <string.h>
+#include <chrono>
 
 #define AVL_MAIN
 // #define ITER_MAIN
@@ -120,11 +121,16 @@ int bst_rec(int argc, char *argv[])
 int avl_main(int argc, char *argv[])
 {
     AVL avl = AVL();
+    BST bst = BST();
     std::vector<int> toarr;
     std::vector<int> randomArr;
     std::vector<int> sorted;
     int a;
-    randomArr = getRandomArray( atoi(argv[1]) );
+    auto avlstart = std::chrono::steady_clock::now();
+    auto avlend = std::chrono::steady_clock::now();
+    auto bststart = std::chrono::steady_clock::now();
+    auto bstend = std::chrono::steady_clock::now();
+    randomArr = getRandomArray( 15 );
 
     for(int i : randomArr)
         avl.insertIter(i);
@@ -143,7 +149,7 @@ int avl_main(int argc, char *argv[])
 
     std::cout << "Max is " << avl.findMaxIter() << " and Min is " << avl.findMinIter() << std::endl;
 
-    for( a = 0; a < randomArr.size() && a < 4; a++ )
+    for( a = 0; a < randomArr.size(); a++ )
     {
         avl.deleteIter(randomArr[a]);
     }
@@ -153,6 +159,29 @@ int avl_main(int argc, char *argv[])
     avl.inOrder(toarr);
     printArray(toarr);
 
+    printf("\nAVL iter vs BST rec\n");
+    randomArr.clear();
+    randomArr = getRandomArray(1000000);
+
+    for(a = 0; a < randomArr.size(); a++)
+        avl.deleteIter(randomArr[a]);
+
+    bststart = std::chrono::steady_clock::now();
+    for(int i : randomArr)
+        bst.insertRec(i);
+    bstend = std::chrono::steady_clock::now();
+    std::cout << std::endl;
+    bst.printTree();
+
+    avlstart = std::chrono::steady_clock::now();
+    for(int i : randomArr)
+        avl.insertIter(i);
+    avlend = std::chrono::steady_clock::now();
+    std::cout << std::endl;
+    avl.printTree();
+
+    std::cout << "BST TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(bstend - bststart).count() << std::endl;
+    std::cout << "AVL TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(avlend - avlstart).count() << std::endl;
 }
 
 int main(int argc, char *argv[])
@@ -195,7 +224,7 @@ std::vector<int> sort(std::vector<int> &arr)
 
 std::vector<int> getRandomArray(int n)
 {
-    const int max = 64;
+    // const int max = 64;
     BST bst = BST();
     std::vector<int> arr;
     std::srand(time(0));
@@ -204,8 +233,8 @@ std::vector<int> getRandomArray(int n)
 
     while(cur < n)
     {
-        num = std::rand() % max;
-        // num = std::rand();
+        // num = std::rand() % max;
+        num = std::rand();
         if( bst.insertIter(num) )
         {
             arr.push_back(num);

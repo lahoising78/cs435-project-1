@@ -99,6 +99,12 @@ int BST::deleteIter(int val)
     {
         if(!node->right && !node->left)
         {
+            if(node == root)
+            {
+                delete node;
+                root = nullptr;
+                return ret;
+            }
             node->setParentNode(nullptr);
             alterParentHeight(node->parent);
             if(node->parent) ret = node->parent->val;

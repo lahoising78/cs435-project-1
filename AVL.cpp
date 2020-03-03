@@ -20,7 +20,7 @@ bool AVL::insertIter(int val)
     node = find(val);
     balanceNode(node);
 
-    this->printTree();
+    // this->printTree();
     // std::cout << val << " set root height to " << root->getHeight() << std::endl;
 }
 
@@ -31,12 +31,12 @@ int AVL::deleteIter(int val)
 
     balanceNode( find(n) );
 
-    if(root)
-        std::cout << "removing " << val << " set root height to " << root->getHeight() << std::endl;
-    else
-        std::cout << "no root" << std::endl;
+    // if(root)
+    //     std::cout << "removing " << val << " set root height to " << root->getHeight() << std::endl;
+    // else
+    //     std::cout << "no root" << std::endl;
 
-    this->printTree();
+    // this->printTree();
     return n;
 }
 
