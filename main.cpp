@@ -122,6 +122,7 @@ int avl_main(int argc, char *argv[])
 {
     AVL avl = AVL();
     BST bst = BST();
+    BST iter = BST();
     std::vector<int> toarr;
     std::vector<int> randomArr;
     std::vector<int> sorted;
@@ -130,6 +131,8 @@ int avl_main(int argc, char *argv[])
     auto avlend = std::chrono::steady_clock::now();
     auto bststart = std::chrono::steady_clock::now();
     auto bstend = std::chrono::steady_clock::now();
+    auto iterstart = std::chrono::steady_clock::now();
+    auto iterend = std::chrono::steady_clock::now();
     randomArr = getRandomArray( 15 );
 
     for(int i : randomArr)
@@ -161,7 +164,7 @@ int avl_main(int argc, char *argv[])
 
     printf("\nAVL iter vs BST rec\n");
     randomArr.clear();
-    randomArr = getRandomArray(1000000);
+    randomArr = getRandomArray(10000);
 
     for(a = 0; a < randomArr.size(); a++)
         avl.deleteIter(randomArr[a]);
@@ -173,6 +176,13 @@ int avl_main(int argc, char *argv[])
     std::cout << std::endl;
     bst.printTree();
 
+    iterstart = std::chrono::steady_clock::now();
+    for(int i : randomArr)
+        iter.insertIter(i);
+    iterend = std::chrono::steady_clock::now();
+    std::cout << std::endl;
+    iter.printTree();
+
     avlstart = std::chrono::steady_clock::now();
     for(int i : randomArr)
         avl.insertIter(i);
@@ -180,7 +190,8 @@ int avl_main(int argc, char *argv[])
     std::cout << std::endl;
     avl.printTree();
 
-    std::cout << "BST TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(bstend - bststart).count() << std::endl;
+    std::cout << "BST REC TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(bstend - bststart).count() << std::endl;
+    std::cout << "BST ITER TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(iterend - iterstart).count() << std::endl;
     std::cout << "AVL TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(avlend - avlstart).count() << std::endl;
 }
 
