@@ -135,7 +135,7 @@ int avl_main(int argc, char *argv[])
     auto iterStart = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double, std::micro> recTime;
     auto recStart = std::chrono::high_resolution_clock::now();
-    randomArr = getRandomArray( 10000 );
+    randomArr = getRandomArray( 1000000 );
 
     avlStart = std::chrono::high_resolution_clock::now();
     for(int i : randomArr)
@@ -160,12 +160,6 @@ int avl_main(int argc, char *argv[])
     printArray(toarr);
     toarr.clear();
 
-    sorted = getSortedArray( 10000 );
-    for(int i : sorted)
-    {
-        avlSorted.insertIter(i);
-        iterSorted.insertIter(i);
-    }
 
     avl.inOrder(toarr);
     printArray(toarr);
@@ -173,8 +167,6 @@ int avl_main(int argc, char *argv[])
     std::cout << std::endl;
     std::cout << "AVL Rand traversed nodes " << avl.getTraversed() << std::endl;
     std::cout << "BST Rand traversed nodes " << iter.getTraversed() << std::endl;
-    std::cout << "AVL Sort traversed nodes " << avlSorted.getTraversed() << std::endl;
-    std::cout << "BST Sort traversed nodes " << iterSorted.getTraversed() << std::endl;
 
     std::cout << "BST REC TREE took " << recTime.count() << " microseconds to insert" << std::endl;
     std::cout << "BST ITER TREE took " << iterTime.count() << " microseconds to insert" << std::endl;
@@ -204,6 +196,27 @@ int avl_main(int argc, char *argv[])
     std::cout << "BST REC TREE took " << recTime.count() << " microseconds to delete" << std::endl;
     std::cout << "BST ITER TREE took " << iterTime.count() << " microseconds to delete" << std::endl;
     std::cout << "AVL TREE took " << avlTime.count() << " microseconds to delete" << std::endl;
+    
+    sorted = getSortedArray( 10000 );
+    
+    avlStart = std::chrono::high_resolution_clock::now();
+    for(int i : sorted)
+    {
+        avlSorted.insertIter(i);
+    }
+    avlTime = std::chrono::high_resolution_clock::now() - avlStart;
+    
+    iterStart = std::chrono::high_resolution_clock::now();
+    for(int i : sorted)
+    {
+        iterSorted.insertIter(i);
+    }
+    iterTime = std::chrono::high_resolution_clock::now() - iterStart;
+    
+    std::cout << "BST ITER TREE took " << iterTime.count() << " microseconds to insert sorted" << std::endl;
+    std::cout << "AVL TREE took " << avlTime.count() << " microseconds to insert sorted" << std::endl;
+    std::cout << "BST Sort traversed nodes " << iterSorted.getTraversed() << std::endl;
+    std::cout << "AVL Sort traversed nodes " << avlSorted.getTraversed() << std::endl;
 }
 
 int main(int argc, char *argv[])
