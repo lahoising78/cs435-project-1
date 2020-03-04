@@ -129,32 +129,32 @@ int avl_main(int argc, char *argv[])
     std::vector<int> randomArr;
     std::vector<int> sorted;
     int a;
-    auto avlstart = std::chrono::steady_clock::now();
-    auto avlend = std::chrono::steady_clock::now();
-    auto bststart = std::chrono::steady_clock::now();
-    auto bstend = std::chrono::steady_clock::now();
-    auto iterstart = std::chrono::steady_clock::now();
-    auto iterend = std::chrono::steady_clock::now();
+    std::chrono::duration<double, std::micro> avlTime;
+    auto avlStart = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> iterTime;
+    auto iterStart = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double, std::micro> recTime;
+    auto recStart = std::chrono::high_resolution_clock::now();
     randomArr = getRandomArray( 10000 );
 
-    avlstart = std::chrono::steady_clock::now();
+    avlStart = std::chrono::high_resolution_clock::now();
     for(int i : randomArr)
     {
         avl.insertIter(i);
     }
-    avlend = std::chrono::steady_clock::now();
+    avlTime = std::chrono::high_resolution_clock::now() - avlStart;
     
-    iterstart = std::chrono::steady_clock::now();
+    iterStart = std::chrono::high_resolution_clock::now();
     for(int i : randomArr)
     {
         iter.insertIter(i);
     }
-    iterend = std::chrono::steady_clock::now();
+    iterTime = std::chrono::high_resolution_clock::now() - iterStart;
     
-    bststart = std::chrono::steady_clock::now();
+    recStart = std::chrono::high_resolution_clock::now();
     for(int i : randomArr)
         bst.insertRec(i);
-    bstend = std::chrono::steady_clock::now();
+    recTime = std::chrono::high_resolution_clock::now() - recStart;
 
     avl.inOrder(toarr);
     printArray(toarr);
@@ -170,14 +170,40 @@ int avl_main(int argc, char *argv[])
     avl.inOrder(toarr);
     printArray(toarr);
 
-    std::cout << "BST REC TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(bstend - bststart).count() << std::endl;
-    std::cout << "BST ITER TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(iterend - iterstart).count() << std::endl;
-    std::cout << "AVL TREE TOOK " << std::chrono::duration_cast<std::chrono::microseconds>(avlend - avlstart).count() << std::endl;
+    std::cout << std::endl;
     std::cout << "AVL Rand traversed nodes " << avl.getTraversed() << std::endl;
     std::cout << "BST Rand traversed nodes " << iter.getTraversed() << std::endl;
     std::cout << "AVL Sort traversed nodes " << avlSorted.getTraversed() << std::endl;
     std::cout << "BST Sort traversed nodes " << iterSorted.getTraversed() << std::endl;
 
+    std::cout << "BST REC TREE took " << recTime.count() << " microseconds to insert" << std::endl;
+    std::cout << "BST ITER TREE took " << iterTime.count() << " microseconds to insert" << std::endl;
+    std::cout << "AVL TREE took " << avlTime.count() << " microseconds to insert" << std::endl;
+
+    recStart = std::chrono::high_resolution_clock::now();
+    for(int i : randomArr)
+    {
+        bst.deleteRec(i);
+    }
+    recTime = std::chrono::high_resolution_clock::now() - recStart;
+
+    iterStart = std::chrono::high_resolution_clock::now();
+    for(int i : randomArr)
+    {
+        iter.deleteIter(i);
+    }
+    iterTime = std::chrono::high_resolution_clock::now() - iterStart;
+
+    avlStart = std::chrono::high_resolution_clock::now();
+    for(int i : randomArr)
+    {
+        avl.deleteIter(i);
+    }
+    avlTime = std::chrono::high_resolution_clock::now() - avlStart;
+
+    std::cout << "BST REC TREE took " << recTime.count() << " microseconds to delete" << std::endl;
+    std::cout << "BST ITER TREE took " << iterTime.count() << " microseconds to delete" << std::endl;
+    std::cout << "AVL TREE took " << avlTime.count() << " microseconds to delete" << std::endl;
 }
 
 int main(int argc, char *argv[])

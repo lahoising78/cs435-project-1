@@ -206,6 +206,7 @@ BSTNode *BSTNode::findNextNode()
 
 void BSTNode::setParentNode(BSTNode *node)
 {
+    if(!this->parent) return;
     if(this->parent->left == this)
     {
         this->parent->left = node;
